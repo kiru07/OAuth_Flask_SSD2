@@ -1,0 +1,18 @@
+{% extends 'layout.html' %}
+{% block content %}
+<div class="content-section">
+    <h1 class="display-4">Recent Gists</h1>
+    {% for gist in gists %}
+    <div class="card mb-3">
+        <h5 class="card-header">{{ gist['filename'] }}</h5>
+        <div class="card-body">
+            <h6 class="card-title"><span class="text-muted">Created on</span> {{ gist['created_at'] | datetimeformat }}
+            </h6>
+            <p class="card-text">{{ gist['description'] }}</p>
+            <p class="card-text text-muted">Language: {{ gist['language'] }}</p>
+            <a href="{{ gist['html_url'] }}" class="btn btn-primary" target="_blank">View Gist</a>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+{% endblock content%}

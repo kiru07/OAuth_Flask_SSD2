@@ -1,0 +1,20 @@
+{% extends 'layout.html' %}
+{% block content %}
+<div class="content-section container">
+    <form action="{{ url_for('login') }}" method="POST">
+        {{ form.hidden_tag() }}
+        <fieldset class="form-group">
+            <legend class="border-bottom mb-5">Login to create Gists</legend>
+            <div class="row justify-content-center align-items-center">
+                <div class="col-md">
+                    <img src="{{ url_for('static', filename='/images/github-octocat.png') }}" alt="GitHub Logo"
+                        class="github-octocat-img img-responsive">
+                </div>
+                <div class="form-group mr-5 col-md-4">
+                    {{ form.submit(class="btn btn-lg btn-outline-dark") }}
+                </div>
+            </div>
+        </fieldset>
+    </form>
+</div>
+{% endblock content %}

@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- <link type="text/css" rel="stylesheet" href="{{ url_for('static', filename='/bootstrap/bootstrap.min.css') }}"> -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+        integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+    <link type="text/css" rel="stylesheet" href="{{ url_for('static', filename='main.css') }}">
+    {% if title %}
+    <title>GitHub Gists - {{ title }}</title>
+    {% else %}
+    <title>GitHub Gists</title>
+    {% endif %}
+</head>
+
+<body class="d-flex flex-column" style="min-height: 100vh;">
+    <header class="header-section">
+        <nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top">
+            <div class="container">
+                <a href="" class="navbar-brand mr-5">
+                    <!--GitHub icon -->
+                    <img src="{{ url_for('static', filename='/images/github_logo.png')}}" alt="GitHub Icon" width="30"
+                        height="30" class="mr-2">
+                    GitHub Gist Maker
+                </a>
+                <!--Show logout, create gist and list gists only if logged in -->
+                {% if logged_in %}
+                <div class="navbar-nav mr-auto">
+                    <a href="{{ url_for('gists') }}" class="nav-item nav-link">Gists</a>
+                    <a href="{{ url_for('create_gist') }}" class="nav-item nav-link">Create Gist</a>
+                </div>
+                <div class="navbar-nav">
+                    <div class="nav-item nav-link mr-3">Hello {{ username }}!</div>
+                    <a href="{{ url_for('logout') }}" class="nav-item nav-link border border-light rounded">Log Out</a>
+                </div>
+                {% endif %}
+            </div>
+        </nav>
+    </header>
+    <main class="flex-fill" role="main">
+        <div class="container">
+
+            <div class="row">
+                <div class="col-md-10">
+                    <!--Flash Messages-->
+                    {% with messages = get_flashed_messages(with_categories=true) %}
+                    {% if messages %}
+                    {% for category, message in messages %}
+                    <div class="alert alert-{{ category }}">
+                        {{ message }}
+                    </div>
+                    {% endfor %}
+                    {% endif %}
+                    {% endwith %}
+                    <!-- Main Content (Override in child templates) -->
+                    {% block content %}{% endblock %}
+                </div>
+            </div>
+        </div>
+    </main>
+    <footer class="footer-section page-footer fixed-bottom bg-dark p-4">
+        <div class="container text-center">
+            Copyright &copy 2020 - K. Kirushanthan (IT16168282) - M.M.M Marjan (IT16174672)
+        </div>
+    </footer>
+    <!--Bootstrap JS (optional)-->
+    <!-- jQuery first, then Popper.js, then Bootstrap js-->
+    <!-- <script src="{{ url_for('static', filename='/bootstrap/jquery-slim.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='/bootstrap/popper.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='/bootstrap/bootstrap.min.js') }}"></script> -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+        integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"
+        integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN"
+        crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"
+        integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV"
+        crossorigin="anonymous"></script>
+</body>
+
+</html>
