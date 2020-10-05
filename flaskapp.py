@@ -74,7 +74,7 @@ def auth_callback():
 
     # Get the 'state' value returned from query parameter. Must be same as the one we passed to github
     state = request.args.get('state')
-    our_state = session['state']
+    our_state = session.get('state')
     if state == our_state:
         # Get the Authorization Code provided by github from query parameter
         auth_code = request.args.get('code')
