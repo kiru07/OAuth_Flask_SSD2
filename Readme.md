@@ -25,7 +25,7 @@ An application to demonstrate OAuth2 flow using GitHub as the OAuth resource and
 
 > *Note*: Deactivate venv after use by executing *deactivate.bat* in above path
 
-* Download project repository from GitHub (link:)
+* Download project repository from GitHub (link: https://github.com/kiru07/OAuth_Flask_SSD2/)
   - Extract project folder and place files inside *Flask_OAuth_App* directory
 
 * Install dependency packages in venv using *requirements.txt*
