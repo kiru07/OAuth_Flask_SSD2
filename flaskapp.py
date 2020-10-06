@@ -17,7 +17,6 @@ app.config['SECRET_KEY'] = 'bda06c0f9615d53f003c145514b94e2a'
 GITHUB_CLIENT_ID = 'REPLACE WITH YOUR GITHUB OAUTH APPLICATION CLIENT ID'
 GITHUB_CLIENT_SECRET = 'REPLACE WITH YOUR GITHUB OAUTH APPLICATION CLIENT SECRET'
 
-
 # GitHub OAuth and API urls
 GITHUB_OAUTH_AUTHORIZE_URL = "https://github.com/login/oauth/authorize"
 GITHUB_OAUTH_ACCESS_URL = "https://github.com/login/oauth/access_token"
@@ -94,14 +93,19 @@ def auth_callback():
         if response.status_code == requests.codes.ok:
             # Retrieve the access token and other values returned from GitHub
             access_response = response.json()
-            access_token = access_response['access_token']
-            # scope = access_response['scope']
-            # token_type = access_response['token_type']
+            access_token = access_response.get('access_token')
+            if access_token:
+                # scope = access_response['scope']
+                # token_type = access_response['token_type']
 
-            # Store the access token in the session
-            session['access_token'] = access_token
-            # Redirect to logged in page
-            return redirect(url_for('gists'))
+                # Store the access token in the session
+                session['access_token'] = access_token
+                # Redirect to logged in page
+                return redirect(url_for('gists'))
+            else:
+                # Authorization not granted. Error returned in query parameter
+                error = request.args.get('error')
+                return render_template('error.html', title='Error', error=f'401 - Unauthorized access. Authorization Not Granted:\n{error}')
         else:
             return render_template('error.html', title='Error', error='400 - Bad Request')
     else:
